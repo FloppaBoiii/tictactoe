@@ -15,9 +15,7 @@ int checkWin(char board[], char currentPlayer) {
             board[i + 2] == currentPlayer) {
 
             win = 1;
-
         }
-
     }
 
     for (int i = 0; i < 3; i++) {
@@ -27,9 +25,7 @@ int checkWin(char board[], char currentPlayer) {
             board[i + 6] == currentPlayer) {
 
             win = 1;
-
         }
-
     }
 
     int diagonal1 = 1;
@@ -40,25 +36,20 @@ int checkWin(char board[], char currentPlayer) {
         if (board[row * 3 + row] != currentPlayer) {
 
             diagonal1 = 0;
-
         }
 
         if (board[row * 3 + (2 - row)] != currentPlayer) {
 
             diagonal2 = 0;
-
         }
-
     }
 
     if (diagonal1 == 1 || diagonal2 == 1) {
 
         win = 1;
-
     }
 
     return win;
-
 }
 
 int main() {
@@ -69,6 +60,8 @@ int main() {
     ImageFormat(&icon, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     SetWindowIcon(icon);
     UnloadImage(icon);
+
+    Texture2D grille = LoadTexture("grille.png");
 
     InitAudioDevice();
 
@@ -98,8 +91,6 @@ int main() {
 
     Color background = { 8, 11, 32, 255 };
 
-    Color boardColor = { 232, 60, 255, 255 };
-
     Color cyan = { 120, 245, 255, 255 };
 
     Color pink = { 232, 60, 255, 255 };
@@ -126,18 +117,14 @@ int main() {
                     mouseY >= 284 && mouseY <= 340) {
 
                     gameState = 1;
-
                 }
 
                 if (mouseX >= 15 && mouseX <= 55 &&
                     mouseY >= 15 && mouseY <= 55) {
 
                     gameState = 3;
-
                 }
-
             }
-
         }
 
         else if (gameState == 1) {
@@ -169,7 +156,6 @@ int main() {
                         winner = currentPlayer;
 
                         gameState = 2;
-
                     }
 
                     else if (turn == 9) {
@@ -177,7 +163,6 @@ int main() {
                         printf("It's a draw!\n");
 
                         gameState = 2;
-
                     }
 
                     else {
@@ -191,15 +176,10 @@ int main() {
                         else {
 
                             currentPlayer = 'X';
-
                         }
-
                     }
-
                 }
-
             }
-
         }
 
         else if (gameState == 2) {
@@ -232,11 +212,8 @@ int main() {
                     gameWon = 0;
 
                     winner = ' ';
-
                 }
-
             }
-
         }
 
         else if (gameState == 3) {
@@ -251,11 +228,8 @@ int main() {
                     mouseY >= 15 && mouseY <= 55) {
 
                     gameState = 0;
-
                 }
-
             }
-
         }
 
         BeginDrawing();
@@ -266,13 +240,33 @@ int main() {
 
             drawMenu();
 
-            DrawCircleLines(35, 35, 22, (Color){ 0, 229, 255, 35 });
+            DrawCircleLines(
+                35,
+                35,
+                22,
+                (Color){ 0, 229, 255, 35 }
+            );
 
-            DrawCircleLines(35, 35, 19, (Color){ 0, 229, 255, 60 });
+            DrawCircleLines(
+                35,
+                35,
+                19,
+                (Color){ 0, 229, 255, 60 }
+            );
 
-            DrawCircleLines(35, 35, 18, cyan);
+            DrawCircleLines(
+                35,
+                35,
+                18,
+                cyan
+            );
 
-            DrawCircleLines(35, 35, 7, cyan);
+            DrawCircleLines(
+                35,
+                35,
+                7,
+                cyan
+            );
 
             DrawLine(35, 11, 35, 4, cyan);
             DrawLine(35, 66, 35, 59, cyan);
@@ -282,95 +276,30 @@ int main() {
             DrawLine(52, 52, 57, 57, cyan);
             DrawLine(52, 18, 57, 13, cyan);
             DrawLine(18, 52, 13, 57, cyan);
-
         }
 
         else if (gameState == 1) {
 
-            DrawRectangle(0, 0, 600, 600, background);
-
-            DrawLineEx(
-                (Vector2){ cellSize, 0 },
-                (Vector2){ cellSize, 600 },
-                22,
-                (Color){ 232, 60, 255, 25 }
-            );
-
-            DrawLineEx(
-                (Vector2){ cellSize, 0 },
-                (Vector2){ cellSize, 600 },
-                14,
-                (Color){ 122, 60, 255, 80 }
-            );
-
-            DrawLineEx(
-                (Vector2){ cellSize, 0 },
-                (Vector2){ cellSize, 600 },
-                7,
-                boardColor
-            );
-
-            DrawLineEx(
-                (Vector2){ cellSize * 2, 0 },
-                (Vector2){ cellSize * 2, 600 },
-                22,
-                (Color){ 232, 60, 255, 25 }
-            );
-
-            DrawLineEx(
-                (Vector2){ cellSize * 2, 0 },
-                (Vector2){ cellSize * 2, 600 },
-                14,
-                (Color){ 122, 60, 255, 80 }
-            );
-
-            DrawLineEx(
-                (Vector2){ cellSize * 2, 0 },
-                (Vector2){ cellSize * 2, 600 },
-                7,
-                boardColor
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize },
-                (Vector2){ 600, cellSize },
-                22,
-                (Color){ 232, 60, 255, 25 }
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize },
-                (Vector2){ 600, cellSize },
-                14,
-                (Color){ 122, 60, 255, 80 }
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize },
-                (Vector2){ 600, cellSize },
-                7,
-                boardColor
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize * 2 },
-                (Vector2){ 600, cellSize * 2 },
-                22,
-                (Color){ 232, 60, 255, 25 }
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize * 2 },
-                (Vector2){ 600, cellSize * 2 },
-                14,
-                (Color){ 122, 60, 255, 80 }
-            );
-
-            DrawLineEx(
-                (Vector2){ 0, cellSize * 2 },
-                (Vector2){ 600, cellSize * 2 },
-                7,
-                boardColor
+            DrawTexturePro(
+                grille,
+                (Rectangle){
+                    0,
+                    0,
+                    grille.width,
+                    grille.height
+                },
+                (Rectangle){
+                    0,
+                    0,
+                    600,
+                    600
+                },
+                (Vector2){
+                    0,
+                    0
+                },
+                0.0f,
+                WHITE
             );
 
             for (int i = 0; i < 9; i++) {
@@ -462,7 +391,6 @@ int main() {
                         8,
                         cyan
                     );
-
                 }
 
                 if (board[i] == 'O') {
@@ -517,11 +445,8 @@ int main() {
                         oRadius,
                         cyan
                     );
-
                 }
-
             }
-
         }
 
         else if (gameState == 2) {
@@ -549,7 +474,6 @@ int main() {
                 else {
 
                     winColor = cyan;
-
                 }
 
                 int winWidth = MeasureText("WIN", 100);
@@ -559,7 +483,12 @@ int main() {
                     (600 - winWidth) / 2 + 4,
                     180,
                     100,
-                    (Color){ winColor.r, winColor.g, winColor.b, 35 }
+                    (Color){
+                        winColor.r,
+                        winColor.g,
+                        winColor.b,
+                        35
+                    }
                 );
 
                 DrawText(
@@ -572,9 +501,16 @@ int main() {
 
                 char winnerText[20];
 
-                sprintf(winnerText, "Player %c wins!", winner);
+                sprintf(
+                    winnerText,
+                    "Player %c wins!",
+                    winner
+                );
 
-                int winnerWidth = MeasureText(winnerText, 40);
+                int winnerWidth = MeasureText(
+                    winnerText,
+                    40
+                );
 
                 DrawText(
                     winnerText,
@@ -591,7 +527,6 @@ int main() {
                     40,
                     white
                 );
-
             }
 
             else {
@@ -603,7 +538,12 @@ int main() {
                     (600 - drawWidth) / 2 + 4,
                     180,
                     100,
-                    (Color){ purple.r, purple.g, purple.b, 35 }
+                    (Color){
+                        purple.r,
+                        purple.g,
+                        purple.b,
+                        35
+                    }
                 );
 
                 DrawText(
@@ -614,7 +554,10 @@ int main() {
                     purple
                 );
 
-                int drawTextWidth = MeasureText("It's a draw!", 40);
+                int drawTextWidth = MeasureText(
+                    "It's a draw!",
+                    40
+                );
 
                 DrawText(
                     "It's a draw!",
@@ -631,7 +574,6 @@ int main() {
                     40,
                     white
                 );
-
             }
 
             DrawRectangle(
@@ -643,18 +585,31 @@ int main() {
             );
 
             DrawRectangleLinesEx(
-                (Rectangle){ 194, 384, 212, 72 },
+                (Rectangle){
+                    194,
+                    384,
+                    212,
+                    72
+                },
                 3,
                 (Color){ 232, 60, 255, 35 }
             );
 
             DrawRectangleLinesEx(
-                (Rectangle){ 198, 388, 204, 64 },
+                (Rectangle){
+                    198,
+                    388,
+                    204,
+                    64
+                },
                 2,
                 pink
             );
 
-            int menuWidth = MeasureText("MAIN MENU", 30);
+            int menuWidth = MeasureText(
+                "MAIN MENU",
+                30
+            );
 
             DrawText(
                 "MAIN MENU",
@@ -671,7 +626,6 @@ int main() {
                 30,
                 white
             );
-
         }
 
         else if (gameState == 3) {
@@ -728,19 +682,18 @@ int main() {
             DrawLine(52, 52, 57, 57, cyan);
             DrawLine(52, 18, 57, 13, cyan);
             DrawLine(18, 52, 13, 57, cyan);
-
         }
 
         EndDrawing();
-
     }
 
     CloseSynthMusic();
 
     CloseAudioDevice();
 
+    UnloadTexture(grille);
+
     CloseWindow();
 
     return 0;
-
 }
